@@ -7,11 +7,11 @@
 
 | Field      | Value         |
 |------------|---------------|
-| **Name**       | [FILL IN]     |
-| **Roll No.**   | [FILL IN]     |
-| **Class**      | [FILL IN]     |
-| **Division**   | [FILL IN]     |
-| **Subject**    | Full Stack Development Lab (FSDL) |
+| **Name**       | Parth Kalpande     |
+| **Roll No.**   | 123B1B161          |
+| **Class**      | BTech              |
+| **Division**   |   C                |
+| **Subject**    | Devops             |
 
 ---
 
@@ -19,8 +19,8 @@
 
 | Resource | Link |
 |----------|------|
-| **Hosted Website Link** | [FILL IN — GitHub Pages URL after enabling Pages from `docs/` branch] |
-| **Repository Link**     | [FILL IN — e.g., https://github.com/ParthsanjayKalpande123/fsdl-practical-assignments] |
+| **Hosted Website Link** | https://parthsanjaykalpande123.github.io/personal-portfolio/ |
+| **Repository Link**     |  https://github.com/ParthsanjayKalpande123/fsdl-practical-assignment |
 
 > The hosted site is the portfolio profile site built in Task 2, served via GitHub Pages from the `docs/` folder of this repository.
 
@@ -107,7 +107,4 @@ fsdl-practical-assignments/
 
 ---
 
-*Last updated: July 2024*
-=======
-# fsdl-practical-assignment
->>>>>>> 5f555f0c4f102de3c2c19d4c6b7833cf82dd04a8
+
