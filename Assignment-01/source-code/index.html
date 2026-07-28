@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Text Formatting Tags — Assignment 01</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2d2d2d;
+      padding: 40px 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    header h1 {
+      font-size: 2rem;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+    header p { color: #555; font-size: 0.95rem; }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    thead {
+      background: #1a1a2e;
+      color: #fff;
+    }
+    thead th {
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    tbody tr:nth-child(even) { background: #f9f9fb; }
+    tbody tr:hover { background: #eef0ff; }
+    tbody td {
+      padding: 14px 18px;
+      border-bottom: 1px solid #e8e8f0;
+      vertical-align: top;
+      font-size: 14px;
+    }
+    .tag-col {
+      font-family: monospace;
+      font-size: 15px;
+      color: #6d28d9;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .code-col {
+      font-family: monospace;
+      background: #f1f0ff;
+      color: #4c1d95;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .output-col { color: #1e1e2f; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #888;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>HTML Text Formatting Tags</h1>
+  <p>Assignment 01 — Full Stack Development Lab &nbsp;|&nbsp; A reference table of all standard HTML text-formatting tags</p>
+</header>
+
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>Tag Name</th>
+        <th>Description</th>
+        <th>Example Code</th>
+        <th>Rendered Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tag-col">&lt;b&gt;</td>
+        <td>Bold text — makes text visually bold without semantic meaning.</td>
+        <td class="code-col">&lt;b&gt;Hello World&lt;/b&gt;</td>
+        <td class="output-col"><b>Hello World</b></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;strong&gt;</td>
+        <td>Important/strong text — bold with semantic importance.</td>
+        <td class="code-col">&lt;strong&gt;Critical Note&lt;/strong&gt;</td>
+        <td class="output-col"><strong>Critical Note</strong></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;i&gt;</td>
+        <td>Italic text — renders text in italics without semantic meaning.</td>
+        <td class="code-col">&lt;i&gt;Italic Text&lt;/i&gt;</td>
+        <td class="output-col"><i>Italic Text</i></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;em&gt;</td>
+        <td>Emphasized text — italic with semantic emphasis meaning.</td>
+        <td class="code-col">&lt;em&gt;Emphasized&lt;/em&gt;</td>
+        <td class="output-col"><em>Emphasized</em></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;u&gt;</td>
+        <td>Underlined text — adds an underline to the text.</td>
+        <td class="code-col">&lt;u&gt;Underlined&lt;/u&gt;</td>
+        <td class="output-col"><u>Underlined</u></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;s&gt;</td>
+        <td>Strikethrough — draws a line through the text.</td>
+        <td class="code-col">&lt;s&gt;Old Price $50&lt;/s&gt;</td>
+        <td class="output-col"><s>Old Price $50</s></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;del&gt;</td>
+        <td>Deleted text — semantic strikethrough (indicates deleted content).</td>
+        <td class="code-col">&lt;del&gt;Deleted Content&lt;/del&gt;</td>
+        <td class="output-col"><del>Deleted Content</del></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;ins&gt;</td>
+        <td>Inserted text — underlined, indicates newly inserted content.</td>
+        <td class="code-col">&lt;ins&gt;New Content&lt;/ins&gt;</td>
+        <td class="output-col"><ins>New Content</ins></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;mark&gt;</td>
+        <td>Highlighted text — applies a yellow highlight background.</td>
+        <td class="code-col">&lt;mark&gt;Highlighted&lt;/mark&gt;</td>
+        <td class="output-col"><mark>Highlighted</mark></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;small&gt;</td>
+        <td>Small text — renders text in a smaller font size.</td>
+        <td class="code-col">&lt;small&gt;Small Print&lt;/small&gt;</td>
+        <td class="output-col"><small>Small Print</small></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;big&gt;</td>
+        <td>Big text — renders text slightly larger (deprecated in HTML5).</td>
+        <td class="code-col">&lt;big&gt;Big Text&lt;/big&gt;</td>
+        <td class="output-col"><big>Big Text</big></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;sub&gt;</td>
+        <td>Subscript — renders text below the baseline (e.g., chemical formulas).</td>
+        <td class="code-col">H&lt;sub&gt;2&lt;/sub&gt;O</td>
+        <td class="output-col">H<sub>2</sub>O</td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;sup&gt;</td>
+        <td>Superscript — renders text above the baseline (e.g., exponents).</td>
+        <td class="code-col">x&lt;sup&gt;2&lt;/sup&gt;</td>
+        <td class="output-col">x<sup>2</sup></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;code&gt;</td>
+        <td>Inline code — displays text in a monospace code font.</td>
+        <td class="code-col">&lt;code&gt;console.log()&lt;/code&gt;</td>
+        <td class="output-col"><code>console.log()</code></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;pre&gt;</td>
+        <td>Preformatted text — preserves spaces and line breaks.</td>
+        <td class="code-col">&lt;pre&gt;  Hello&lt;/pre&gt;</td>
+        <td class="output-col"><pre>  Hello</pre></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;kbd&gt;</td>
+        <td>Keyboard input — denotes text typed on a keyboard.</td>
+        <td class="code-col">&lt;kbd&gt;Ctrl+C&lt;/kbd&gt;</td>
+        <td class="output-col"><kbd>Ctrl+C</kbd></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;samp&gt;</td>
+        <td>Sample output — represents output from a computer program.</td>
+        <td class="code-col">&lt;samp&gt;Error 404&lt;/samp&gt;</td>
+        <td class="output-col"><samp>Error 404</samp></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;var&gt;</td>
+        <td>Variable — denotes a mathematical or programming variable.</td>
+        <td class="code-col">&lt;var&gt;x = y + 1&lt;/var&gt;</td>
+        <td class="output-col"><var>x = y + 1</var></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;abbr&gt;</td>
+        <td>Abbreviation — shows the full form on hover via title attribute.</td>
+        <td class="code-col">&lt;abbr title="HyperText"&gt;HTML&lt;/abbr&gt;</td>
+        <td class="output-col"><abbr title="HyperText Markup Language">HTML</abbr></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;cite&gt;</td>
+        <td>Citation — marks the title of a referenced creative work.</td>
+        <td class="code-col">&lt;cite&gt;The Great Gatsby&lt;/cite&gt;</td>
+        <td class="output-col"><cite>The Great Gatsby</cite></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;q&gt;</td>
+        <td>Inline quotation — wraps short inline quotations with quote marks.</td>
+        <td class="code-col">&lt;q&gt;To be or not to be&lt;/q&gt;</td>
+        <td class="output-col"><q>To be or not to be</q></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;blockquote&gt;</td>
+        <td>Block quotation — a longer quoted section, indented by default.</td>
+        <td class="code-col">&lt;blockquote&gt;Long quote…&lt;/blockquote&gt;</td>
+        <td class="output-col"><blockquote>Long quoted text here…</blockquote></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;address&gt;</td>
+        <td>Address — contact information for the author/owner.</td>
+        <td class="code-col">&lt;address&gt;Pune, India&lt;/address&gt;</td>
+        <td class="output-col"><address>Pune, India</address></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;bdo&gt;</td>
+        <td>Bidirectional Override — overrides text direction.</td>
+        <td class="code-col">&lt;bdo dir="rtl"&gt;Hello&lt;/bdo&gt;</td>
+        <td class="output-col"><bdo dir="rtl">Hello</bdo></td>
+      </tr>
+      <tr>
+        <td class="tag-col">&lt;time&gt;</td>
+        <td>Time — marks a specific time or date, machine-readable.</td>
+        <td class="code-col">&lt;time datetime="2024-01-01"&gt;Jan 1&lt;/time&gt;</td>
+        <td class="output-col"><time datetime="2024-01-01">Jan 1</time></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  <p>FSDL Practical Assignments — Assignment 01 | Add screenshots of this running locally here.</p>
+</footer>
+
+</body>
+</html>
