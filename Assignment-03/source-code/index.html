@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StyleHub — Fashion Store</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar navbar-expand-lg navbar-dark shop-nav sticky-top">
+  <div class="container">
+    <a class="navbar-brand brand-logo" href="#">StyleHub</a>
+    <div class="d-flex align-items-center gap-3">
+      <!-- Filter buttons -->
+      <div class="filter-btns d-none d-md-flex gap-2">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="men">Men</button>
+        <button class="filter-btn" data-filter="women">Women</button>
+        <button class="filter-btn" data-filter="accessories">Accessories</button>
+      </div>
+      <!-- Cart -->
+      <button class="cart-btn" id="cartToggle">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO BANNER ===== -->
+<div class="shop-hero">
+  <div class="container">
+    <p class="hero-sub">New Season Collection</p>
+    <h1>Elevate Your Style</h1>
+    <p>Curated fashion for the modern wardrobe</p>
+    <a href="#products" class="hero-cta">Shop Now</a>
+  </div>
+</div>
+
+<!-- ===== PRODUCT GRID ===== -->
+<section class="container py-5" id="products">
+  <h2 class="section-title mb-4">Our Collection</h2>
+
+  <!-- Mobile filter -->
+  <div class="d-flex d-md-none flex-wrap gap-2 mb-4">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="men">Men</button>
+    <button class="filter-btn" data-filter="women">Women</button>
+    <button class="filter-btn" data-filter="accessories">Accessories</button>
+  </div>
+
+  <div class="row g-4" id="productGrid">
+    <!-- Products are injected by JS -->
+  </div>
+</section>
+
+<!-- ===== CART PANEL ===== -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h4>Your Cart</h4>
+    <button class="close-cart" id="closeCart"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="empty-cart">Your cart is empty.</p>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total">Total: <strong id="cartTotal">₹0</strong></div>
+    <button class="checkout-btn">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast-msg" id="toastMsg"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

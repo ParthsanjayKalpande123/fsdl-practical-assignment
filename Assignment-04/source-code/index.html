@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Dashboard — Assignment 04</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #0d47a1 100%);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header p  { font-size: 13px; color: #b0bec5; margin-top: 2px; }
+    .header-date { font-size: 13px; color: #90caf9; text-align: right; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+
+    /* City Selector */
+    .city-selector {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .city-btn {
+      padding: 8px 20px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #94a3b8;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .city-btn.active, .city-btn:hover {
+      background: #1d4ed8;
+      color: #fff;
+      border-color: #1d4ed8;
+    }
+
+    /* Stat Cards */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 22px 20px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-4px); }
+    .stat-card .icon { font-size: 32px; margin-bottom: 8px; }
+    .stat-card .value { font-size: 2rem; font-weight: 700; }
+    .stat-card .label { font-size: 12px; color: #64748b; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Charts */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 768px) { .charts-grid { grid-template-columns: 1fr; } }
+
+    .chart-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .chart-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 18px; color: #90caf9; }
+
+    .chart-full {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .chart-full h3 { font-size: 15px; font-weight: 600; margin-bottom: 18px; color: #90caf9; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #475569;
+      font-size: 13px;
+      border-top: 1px solid #1e293b;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🌤️ Weather Dashboard</h1>
+    <p>Assignment 04 — Interactive Dashboard with Chart.js</p>
+  </div>
+  <div class="header-date" id="dateDisplay"></div>
+</header>
+
+<div class="container">
+
+  <!-- City Selector -->
+  <div class="city-selector" id="citySelector">
+    <button class="city-btn active" data-city="Pune">📍 Pune</button>
+    <button class="city-btn" data-city="Mumbai">📍 Mumbai</button>
+    <button class="city-btn" data-city="Delhi">📍 Delhi</button>
+    <button class="city-btn" data-city="Bangalore">📍 Bangalore</button>
+    <button class="city-btn" data-city="Chennai">📍 Chennai</button>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="stat-cards" id="statCards"></div>
+
+  <!-- Charts Grid: Line + Bar -->
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3>📈 7-Day Temperature Trend (°C)</h3>
+      <canvas id="tempLineChart" height="220"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>📊 Daily Rainfall (mm)</h3>
+      <canvas id="rainfallBarChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <!-- Full-width: Humidity + Wind -->
+  <div class="chart-full">
+    <h3>💧 Humidity (%) vs 💨 Wind Speed (km/h) — Weekly</h3>
+    <canvas id="humidWindChart" height="120"></canvas>
+  </div>
+
+</div>
+
+<footer>
+  Weather Dashboard — Assignment 04 | Data is mock/sample JSON for demonstration purposes.
+</footer>
+
+<script>
+// ============================================================
+// Mock Weather Data
+// ============================================================
+const weatherData = {
+  Pune: {
+    current: { temp: 28, feels: 31, humidity: 72, wind: 18, condition: '⛅ Partly Cloudy', uv: 6 },
+    days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    temps:     [26, 28, 30, 27, 25, 29, 28],
+    rainfall:  [0,  2,  0,  8,  12, 1,  0 ],
+    humidity:  [68, 72, 65, 80, 85, 70, 68],
+    wind:      [15, 18, 20, 12, 22, 16, 14],
+  },
+  Mumbai: {
+    current: { temp: 32, feels: 38, humidity: 88, wind: 22, condition: '🌧️ Rainy', uv: 4 },
+    days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    temps:     [30, 32, 31, 33, 29, 30, 32],
+    rainfall:  [10, 25, 8,  30, 40, 15, 5 ],
+    humidity:  [85, 88, 82, 90, 92, 86, 80],
+    wind:      [20, 22, 18, 25, 28, 20, 17],
+  },
+  Delhi: {
+    current: { temp: 38, feels: 42, humidity: 40, wind: 10, condition: '☀️ Sunny', uv: 9 },
+    days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    temps:     [36, 38, 40, 37, 39, 35, 36],
+    rainfall:  [0,  0,  0,  2,  0,  0,  0 ],
+    humidity:  [38, 40, 35, 45, 42, 38, 36],
+    wind:      [8,  10, 12, 9,  11, 8,  7 ],
+  },
+  Bangalore: {
+    current: { temp: 24, feels: 25, humidity: 65, wind: 14, condition: '🌤️ Pleasant', uv: 5 },
+    days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    temps:     [23, 24, 25, 22, 23, 24, 25],
+    rainfall:  [5,  0,  2,  10, 3,  0,  1 ],
+    humidity:  [62, 65, 60, 70, 66, 63, 61],
+    wind:      [12, 14, 16, 11, 13, 15, 12],
+  },
+  Chennai: {
+    current: { temp: 34, feels: 40, humidity: 80, wind: 16, condition: '🌦️ Humid', uv: 7 },
+    days: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    temps:     [33, 34, 35, 33, 34, 32, 33],
+    rainfall:  [0,  5,  12, 8,  3,  0,  2 ],
+    humidity:  [78, 80, 82, 79, 81, 76, 77],
+    wind:      [14, 16, 18, 15, 17, 13, 14],
+  },
+};
+
+let currentCity = 'Pune';
+let tempChart, rainChart, humidWindChart;
+
+// ---- Date ----
+const now = new Date();
+document.getElementById('dateDisplay').innerHTML =
+  now.toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' }) +
+  '<br>' + now.toLocaleTimeString('en-IN');
+
+// ---- Stat Cards ----
+function renderStats(city) {
+  const d = weatherData[city].current;
+  document.getElementById('statCards').innerHTML = `
+    <div class="stat-card"><div class="icon">🌡️</div><div class="value">${d.temp}°C</div><div class="label">Temperature</div></div>
+    <div class="stat-card"><div class="icon">🤔</div><div class="value">${d.feels}°C</div><div class="label">Feels Like</div></div>
+    <div class="stat-card"><div class="icon">💧</div><div class="value">${d.humidity}%</div><div class="label">Humidity</div></div>
+    <div class="stat-card"><div class="icon">💨</div><div class="value">${d.wind} km/h</div><div class="label">Wind Speed</div></div>
+    <div class="stat-card"><div class="icon">${d.condition.split(' ')[0]}</div><div class="value" style="font-size:1rem">${d.condition.split(' ').slice(1).join(' ')}</div><div class="label">Condition</div></div>
+    <div class="stat-card"><div class="icon">☀️</div><div class="value">${d.uv}</div><div class="label">UV Index</div></div>
+  `;
+}
+
+// ---- Charts ----
+const chartDefaults = {
+  plugins: { legend: { labels: { color: '#94a3b8', font: { size: 12 } } } },
+  scales: {
+    x: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } },
+    y: { ticks: { color: '#64748b' }, grid: { color: '#334155' } },
+  },
+};
+
+function createCharts(city) {
+  const d = weatherData[city];
+
+  if (tempChart) tempChart.destroy();
+  if (rainChart) rainChart.destroy();
+  if (humidWindChart) humidWindChart.destroy();
+
+  // Temperature Line Chart
+  tempChart = new Chart(document.getElementById('tempLineChart'), {
+    type: 'line',
+    data: {
+      labels: d.days,
+      datasets: [{
+        label: 'Temp (°C)',
+        data: d.temps,
+        borderColor: '#f59e0b',
+        backgroundColor: 'rgba(245,158,11,0.15)',
+        borderWidth: 2.5,
+        pointBackgroundColor: '#f59e0b',
+        pointRadius: 5,
+        fill: true,
+        tension: 0.4,
+      }],
+    },
+    options: { ...chartDefaults, responsive: true },
+  });
+
+  // Rainfall Bar Chart
+  rainChart = new Chart(document.getElementById('rainfallBarChart'), {
+    type: 'bar',
+    data: {
+      labels: d.days,
+      datasets: [{
+        label: 'Rainfall (mm)',
+        data: d.rainfall,
+        backgroundColor: 'rgba(59,130,246,0.6)',
+        borderColor: '#3b82f6',
+        borderWidth: 1.5,
+        borderRadius: 6,
+      }],
+    },
+    options: { ...chartDefaults, responsive: true },
+  });
+
+  // Humidity + Wind Line Chart (dual)
+  humidWindChart = new Chart(document.getElementById('humidWindChart'), {
+    type: 'line',
+    data: {
+      labels: d.days,
+      datasets: [
+        {
+          label: 'Humidity (%)',
+          data: d.humidity,
+          borderColor: '#06b6d4',
+          backgroundColor: 'rgba(6,182,212,0.1)',
+          borderWidth: 2.5,
+          pointRadius: 4,
+          tension: 0.4,
+          fill: true,
+        },
+        {
+          label: 'Wind Speed (km/h)',
+          data: d.wind,
+          borderColor: '#10b981',
+          backgroundColor: 'rgba(16,185,129,0.1)',
+          borderWidth: 2.5,
+          pointRadius: 4,
+          tension: 0.4,
+          fill: true,
+        },
+      ],
+    },
+    options: { ...chartDefaults, responsive: true },
+  });
+}
+
+// ---- City Switch ----
+document.getElementById('citySelector').addEventListener('click', e => {
+  const btn = e.target.closest('.city-btn');
+  if (!btn) return;
+  document.querySelectorAll('.city-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCity = btn.dataset.city;
+  renderStats(currentCity);
+  createCharts(currentCity);
+});
+
+// ---- Init ----
+renderStats(currentCity);
+createCharts(currentCity);
+</script>
+</body>
+</html>

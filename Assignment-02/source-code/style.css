@@ -1,0 +1,186 @@
+/* Assignment 02 — Resume/Bio Page Styles */
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: #f0f2f5;
+  color: #2d2d2d;
+  margin: 0;
+}
+
+.accent-bar {
+  height: 6px;
+  background: linear-gradient(90deg, #6d28d9, #2563eb);
+}
+
+.resume-wrapper {
+  max-width: 960px;
+}
+
+/* ---- Header ---- */
+.avatar-placeholder {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #6d28d9, #2563eb);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.resume-name {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.resume-role {
+  font-size: 1rem;
+  color: #6d28d9;
+  font-weight: 600;
+  margin: 0;
+}
+
+.contact-bar a,
+.contact-bar span {
+  font-size: 13px;
+  color: #555;
+  text-decoration: none;
+}
+
+.contact-bar a:hover { color: #6d28d9; }
+
+/* ---- Sections ---- */
+.resume-section {
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px 26px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.section-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #6d28d9;
+  border-bottom: 2px solid #ede9fe;
+  padding-bottom: 10px;
+  margin-bottom: 18px;
+}
+
+/* ---- Skills ---- */
+.skill-label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.progress {
+  height: 8px;
+  background: #ede9fe;
+  border-radius: 999px;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #6d28d9, #2563eb);
+  border-radius: 999px;
+}
+
+/* ---- Certifications ---- */
+.cert-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cert-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f5;
+  font-size: 14px;
+  color: #444;
+}
+
+.cert-list li::before {
+  content: '🏅 ';
+}
+
+/* ---- Timeline ---- */
+.timeline-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  background: #6d28d9;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+
+.timeline-content h5 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.timeline-content .inst {
+  font-size: 13px;
+  color: #666;
+  margin: 2px 0 4px;
+}
+
+.badge-year {
+  background: #ede9fe;
+  color: #6d28d9;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+
+/* ---- Projects ---- */
+.project-item {
+  border-left: 3px solid #6d28d9;
+  padding-left: 14px;
+}
+
+.project-item h5 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.project-item p {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.tech-tags span {
+  display: inline-block;
+  background: #ede9fe;
+  color: #6d28d9;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 2px 10px;
+  margin-right: 5px;
+}
+
+/* ---- Interests ---- */
+.interest-tag {
+  background: #dbeafe;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 4px 14px;
+}
