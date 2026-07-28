@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # FSDL Practical Assignments — Full Stack Development Lab
 
 ---
@@ -107,3 +108,6 @@ fsdl-practical-assignments/
 ---
 
 *Last updated: July 2024*
+=======
+# fsdl-practical-assignment
+>>>>>>> 5f555f0c4f102de3c2c19d4c6b7833cf82dd04a8
