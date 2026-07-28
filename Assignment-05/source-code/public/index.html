@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIT Pune — College Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; }
+    .top-bar { background: #1a237e; color: #fff; font-size: 13px; padding: 6px 20px; }
+    .navbar-brand { font-weight: 800; font-size: 1.4rem; color: #1a237e !important; }
+    .hero {
+      background: linear-gradient(135deg, #1a237e 0%, #283593 60%, #0d47a1 100%);
+      color: #fff;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; }
+    .hero p   { font-size: 1.1rem; opacity: 0.85; }
+    .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 32px; }
+    .card { border: none; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); transition: transform 0.2s; }
+    .card:hover { transform: translateY(-4px); }
+    .dept-icon { font-size: 2rem; color: #1a237e; }
+    .event-date { font-size: 12px; color: #666; }
+    .form-section { background: #1a237e; color: #fff; padding: 60px 20px; }
+    #inquiryMsg { display: none; }
+    footer { background: #1a1a2e; color: #888; padding: 24px; text-align: center; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<div class="top-bar d-flex justify-content-between">
+  <span><i class="fas fa-phone me-1"></i> +91-20-XXXX-XXXX &nbsp;|&nbsp; <i class="fas fa-envelope me-1"></i>info@vit.edu</span>
+  <span>NAAC Accredited Institution</span>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="#"><i class="fas fa-university me-2"></i>VIT Pune</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#departments">Departments</a></li>
+        <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero" id="about">
+  <div id="collegeName" class="mb-2"><span class="badge bg-warning text-dark">Loading…</span></div>
+  <h1 id="heroTitle">Vishwakarma Institute of Technology</h1>
+  <p id="heroLocation">Pune, Maharashtra, India</p>
+  <a href="#departments" class="btn btn-warning fw-bold mt-3 rounded-pill px-4">Explore Departments</a>
+</div>
+
+<!-- Departments -->
+<section class="container py-5" id="departments">
+  <h2 class="section-title text-center">Departments</h2>
+  <div class="row g-4" id="deptGrid">
+    <div class="col-12 text-center text-muted"><i class="fas fa-spinner fa-spin me-2"></i>Loading…</div>
+  </div>
+</section>
+
+<!-- Events -->
+<section class="bg-light py-5" id="events">
+  <div class="container">
+    <h2 class="section-title text-center">Upcoming Events</h2>
+    <div class="row g-4" id="eventGrid">
+      <div class="col-12 text-center text-muted"><i class="fas fa-spinner fa-spin me-2"></i>Loading…</div>
+    </div>
+  </div>
+</section>
+
+<!-- Inquiry Form -->
+<section class="form-section" id="contact">
+  <div class="container" style="max-width:600px">
+    <h2 class="section-title text-center">Send an Inquiry</h2>
+    <form id="inquiryForm">
+      <div class="mb-3">
+        <input type="text" id="iName" class="form-control form-control-lg" placeholder="Your Name" required>
+      </div>
+      <div class="mb-3">
+        <input type="email" id="iEmail" class="form-control form-control-lg" placeholder="Email Address" required>
+      </div>
+      <div class="mb-3">
+        <textarea id="iMessage" class="form-control form-control-lg" rows="4" placeholder="Your message…" required></textarea>
+      </div>
+      <button class="btn btn-warning fw-bold w-100 rounded-pill py-3" type="submit">Send Message</button>
+    </form>
+    <div id="inquiryMsg" class="alert alert-success mt-3"></div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2024 Vishwakarma Institute of Technology, Pune. Assignment 05 — Node.js + Express</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const icons = ['💻','🔌','⚙️','🏗️','📡'];
+
+  // Load college info
+  fetch('/api/college').then(r => r.json()).then(d => {
+    document.getElementById('heroTitle').textContent   = d.name;
+    document.getElementById('heroLocation').textContent = `📍 ${d.location} | Est. ${d.founded}`;
+    document.getElementById('collegeName').innerHTML   = `<span class="badge bg-warning text-dark">Est. ${d.founded}</span>`;
+  });
+
+  // Load departments
+  fetch('/api/departments').then(r => r.json()).then(depts => {
+    document.getElementById('deptGrid').innerHTML = depts.map((d, i) => `
+      <div class="col-md-4">
+        <div class="card p-4">
+          <div class="dept-icon mb-2">${icons[i] || '🎓'}</div>
+          <h5 class="fw-bold">${d.name}</h5>
+          <p class="text-muted mb-1"><small>HOD: ${d.hod}</small></p>
+          <span class="badge bg-primary rounded-pill">${d.students} Students</span>
+        </div>
+      </div>
+    `).join('');
+  });
+
+  // Load events
+  fetch('/api/events').then(r => r.json()).then(events => {
+    document.getElementById('eventGrid').innerHTML = events.map(e => `
+      <div class="col-md-3">
+        <div class="card p-3 text-center">
+          <div style="font-size:2rem">🗓️</div>
+          <h6 class="fw-bold mt-2">${e.title}</h6>
+          <p class="event-date">${new Date(e.date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</p>
+          <span class="badge bg-secondary">${e.venue}</span>
+        </div>
+      </div>
+    `).join('');
+  });
+
+  // Inquiry form
+  document.getElementById('inquiryForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const body = {
+      name:    document.getElementById('iName').value,
+      email:   document.getElementById('iEmail').value,
+      message: document.getElementById('iMessage').value,
+    };
+    const res  = await fetch('/api/inquiry', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    const data = await res.json();
+    const msg  = document.getElementById('inquiryMsg');
+    msg.textContent = data.message || data.error;
+    msg.style.display = 'block';
+    if (res.ok) document.getElementById('inquiryForm').reset();
+  });
+</script>
+</body>
+</html>
