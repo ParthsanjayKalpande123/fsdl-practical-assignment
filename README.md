@@ -1,5 +1,3 @@
-
-
 <<<<<<< HEAD
 # FSDL Practical Assignments — Full Stack Development Lab
 
